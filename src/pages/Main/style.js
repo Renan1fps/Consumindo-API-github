@@ -20,7 +20,6 @@ h1{
 }
 `;
 
-
 export const Form = styled.form`
 margin-top: 30px;
 display: flex;
@@ -37,7 +36,9 @@ input{
 }
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button.attrs({
+  type: 'submit'
+})`
 padding: 6px 15px;
 background-color: green;
 border-radius: 5px;

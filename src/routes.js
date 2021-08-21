@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Main from './pages/Main'
 import Repository from './pages/Repository'
-//import Error from './pages/Error'
+import Error from './pages/Error'
 
 export default function Routes(){
     return(
@@ -12,7 +12,7 @@ export default function Routes(){
                    <Route exact path="/" component={Main}></Route>
                    <Route path="/repository/:repository" component={Repository}></Route>
 
-                   {/*<Route path="*" component={Error}></Route>*/}
+                   <Route path="*" component={Error}></Route>
                </Switch>
         </BrowserRouter>
     )
