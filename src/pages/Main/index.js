@@ -12,7 +12,7 @@ export default function Main(){
              <Form onSubmit={()=>{}} >
                <input type="text" placeholder="Add repository"/>
                <SubmitButton>
-               
+               <FaPlus color="#FFF" size={14}/>
                </SubmitButton>
              </Form>
         </Container>
