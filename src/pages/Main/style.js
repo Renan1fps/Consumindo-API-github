@@ -47,6 +47,31 @@ to{
 }
 `;
 
+export const List = styled.ul`
+margin-top: 20px;
+list-style: none;
+
+li{
+padding: 15px 0;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+}
+ svg{
+   color: #f2ecff;
+ }
+`;
+
+export const DeleteButton = styled.button.attrs({
+  type: "button"
+})`
+
+margin-right: 10px;
+background: transparent;
+border: 0;
+`;
+
 export const SubmitButton = styled.button.attrs(props =>({
   type: 'submit',
   disabled: props.loading,
@@ -63,14 +88,13 @@ align-items: center;
 &[disabled]{
 cursor: not-allowed;
 opacity: 0.5;
-
+}
 ${props => props.loading && 
   css`
    svg{
-     animation : ${animate} 1s linear infinite
+     animation : ${animate} 1s linear infinite;
    }
   `
 }
-
-}
 `;
+
