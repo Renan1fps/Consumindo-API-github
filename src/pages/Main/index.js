@@ -1,6 +1,6 @@
 import {Container, Form, SubmitButton, List, DeleteButton} from './style'
 import { FaGithub, FaPlus, FaSpinner, FaBars, FaTrash } from 'react-icons/fa'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 import { api } from '../../services/api'
 
@@ -8,15 +8,42 @@ export default function Main(){
 const [newRepo, setNewRepo]= useState('')
 const [repositories, setRepositories]= useState([])
 const [loading, setLoading]= useState(false)
+const [error, setError]= useState(false)
+
+
+useEffect(()=>{
+  const getRepositories = localStorage.getItem("repositories")
+ 
+  if(getRepositories){
+   setRepositories(JSON.parse(getRepositories))
+  }
+  
+ },[])
+
+useEffect(()=>{
+ localStorage.setItem("repositories", JSON.stringify(repositories))
+
+},[repositories])
 
 const handleSubmit = useCallback((e)=>{
    e.preventDefault()
    async function submit(){
     setLoading(true)
+    setError(false)
 
     try{
 
+    if(newRepo === ''){
+      setError(true)
+      alert("Repository name can't be empty")
+    }
+
     const response = await api.get(`repos/${newRepo}`)
+    const duplicateRepository = repositories.find(repo=> repo.name === newRepo)
+    if(duplicateRepository){
+      alert("Repository already exists")
+      throw new Error("Duplicate repository")
+    }
     const data = {
       name: response.data.full_name
     }
@@ -34,6 +61,7 @@ const handleSubmit = useCallback((e)=>{
 
 function handleChangeInput(e){
   setNewRepo(e.target.value)
+  setError(false)
 }
 
 const handleDeleteRepository = useCallback((name)=>{
@@ -50,7 +78,7 @@ const handleDeleteRepository = useCallback((name)=>{
                My repositories
             </h1>
 
-             <Form onSubmit={handleSubmit} >
+             <Form onSubmit={handleSubmit} error={error} >
                  <input
                  type="text" 
                  placeholder="Add repository"

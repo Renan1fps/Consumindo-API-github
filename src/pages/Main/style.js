@@ -32,7 +32,7 @@ input{
   border-radius: 5px;
   padding: 8px 10px;
   font-size: 15px;
-  border: none;
+  border: 3px solid ${props=> (props.error ? 'red' : 'inherit')};
 }
 `;
 
