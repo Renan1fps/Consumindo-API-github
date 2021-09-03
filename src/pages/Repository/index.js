@@ -1,6 +1,8 @@
-import { Container } from "./style.js"
+import { Container, Owner, Loading, BackButton } from "./style.js"
 import { useState, useEffect} from "react"
 import { api } from "../../services/api"
+import carregando from "./loadNaruto.gif"
+import { FaArrowLeft } from "react-icons/fa"
 
 export default function Repository({match}){
     const [repository, setRepository]= useState({})
@@ -13,7 +15,7 @@ export default function Repository({match}){
             const nameRepo = decodeURIComponent(match.params.repository)
             const [repositoryData, issuesData] = await Promise.all([
                 api.get(`/repos/${nameRepo}`),
-                api.get(`repo/${nameRepo}/issues`, {
+                api.get(`repos/${nameRepo}/issues`, {
                     params:{
                         state: 'open',
                         per_page: 5
@@ -28,10 +30,29 @@ export default function Repository({match}){
         load()
     },[match.params.repository])
 
+    if(loading){
+        return(
+            <Loading>
+                <img src={carregando} alt="carregando"/>
+                <h1>Loading...</h1>
+            </Loading>
+        )
+
+    }
+
     return(
         <Container>
-              <h1>Repository</h1>
-              <h1>{decodeURIComponent(match.params.repository)}</h1>
+            <BackButton to="/">
+                  <FaArrowLeft style={{color: "#ffffff"}} size={20}/>
+            </BackButton>
+              <Owner>
+                  <img 
+                  src={repository.owner.avatar_url}
+                  alt={repository.owner.login}
+                  />
+                  <h1>{repository.name}</h1>
+                  <p>{repository.description ? repository.description : "Repository without description"}</p>
+              </Owner>
         </Container>
         
     )
