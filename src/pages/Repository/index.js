@@ -1,7 +1,10 @@
 
-
-export default function Repository(){
+export default function Repository({match}){
     return(
-        <h1>Repository</h1>
+        <div>
+              <h1>Repository</h1>
+              <h1>{decodeURIComponent(match.params.repository)}</h1>
+        </div>
+        
     )
 }
