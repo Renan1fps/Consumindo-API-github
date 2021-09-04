@@ -47,3 +47,26 @@ img{
 
 export const BackButton = styled(Link)`
 `;
+
+export const IssueSList= styled.div`
+margin-top: 20px;
+display: flex;
+flex-direction: column;
+
+p{
+  padding-left: 10px;
+  font-size: 17px
+}
+
+li{
+  display: flex;
+  align-items: center;
+  margin: 15px 0; 
+}
+
+
+img{
+  width: 30px;
+  border-radius: 50%;
+}
+`;
